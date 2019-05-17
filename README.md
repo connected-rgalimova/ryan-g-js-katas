@@ -15,6 +15,19 @@ To run the tests, run `npm run test`.
 
 For a true TDD experience: use [wallaby.js](https://wallabyjs.com/) with the included `wallaby.js` file.
 
+### To work on a specific Kata
+
+E.G: BowlingGame: `npm run watch src/BowlingGame`
+
+## Webstorm tips
+
+Autocomplete Jest functions:
+https://medium.com/front-end-weekly/fix-element-is-not-imported-jest-describe-it-expect-in-webstorm-aaf8c29ae3c2
+
+Node JS / NPM Coding Assistance:
+https://intellij-support.jetbrains.com/hc/en-us/community/posts/360001718840-How-to-stop-NodeJS-require-being-flagged-as-unresolved-
+
+
 # Katas
 
 ## Greeter
