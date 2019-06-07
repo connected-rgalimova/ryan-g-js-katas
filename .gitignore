@@ -213,3 +213,9 @@ buck-out/
 \.buckd/
 android/app/libs
 android/keystores/debug.keystore
+
+# Python Files (Bowling-game)
+
+**/__pycache__
+**/.pytest_cache
+**/.vscode
