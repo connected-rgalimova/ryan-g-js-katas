@@ -30,7 +30,6 @@ class TestBowlingGame(unittest.TestCase):
 
     def test_oneStrikeGame(self):
         self.game.roll(10) # Frame 1
-        self.game.roll(0)
         self.game.roll(2) # Frame 2
         self.game.roll(3)
         for i in range(16):
