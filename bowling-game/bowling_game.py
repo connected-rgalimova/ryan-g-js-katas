@@ -3,17 +3,21 @@ class BowlingGame:
     roll_num = 0
     pins_knocked_down = 0
     multiplier = 1
+    scores = [0] * 21
     def roll(self, pins):
-        # strike = 10 points in one ball over a single frame
-        # spare = 10 points in two balls over a single frame
+        self.scores[self.roll_num] = pins
         self.roll_num += 1
-        self.score += (pins * self.multiplier)
-        self.multiplier = 1
-        if (self.roll_num % 2) == 0: # first roll
-            self.pins_knocked_down = pins
-        elif (self.roll_num % 2) == 1: # second roll
-            if (self.pins_knocked_down + pins) == 10:
-                self.multiplier = 2
 
     def get_score(self):
-        return self.score
+        score = 0
+        for i in range(0, 19, 2):
+            frame_val = self.scores[i] + self.scores[i + 1]
+            
+            if self.scores[i] == 10:
+                frame_val += self.scores[i + 2] + self.scores[i + 3]
+
+            if frame_val == 10:
+                score += self.scores[i + 2]
+
+            score += frame_val
+        return score
