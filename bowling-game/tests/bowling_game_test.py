@@ -8,19 +8,16 @@ class TestBowlingGame(unittest.TestCase):
         self.game = BowlingGame()
 
     def test_gutterGame(self):
-        # game = BowlingGame()
         for i in range(20):
             self.game.roll(0)
         self.assertEqual(self.game.get_score(), 0)
 
     def test_allOneGame(self):
-        # game = BowlingGame()
         for i in range(20):
             self.game.roll(1)
         self.assertEqual(self.game.get_score(), 20)
 
     def test_oneSpareGame(self):
-        # game = BowlingGame()
         self.game.roll(5)
         self.game.roll(5) # Spare
         self.game.roll(3)
@@ -35,6 +32,28 @@ class TestBowlingGame(unittest.TestCase):
         for i in range(16):
             self.game.roll(0)
         self.assertEqual(self.game.get_score(), 20)
+
+    def test_oneStrikeThenZeroSpareGame(self):
+        self.game.roll(10) # Frame 1
+        self.game.roll(0) # Frame 2
+        self.game.roll(10)
+        self.game.roll(2)
+        for i in range(15):
+            self.game.roll(0)
+        self.assertEqual(self.game.get_score(), 34)
+
+    def test_twoStrikeGame(self):
+        self.game.roll(10) #first strike
+        self.game.roll(10) #second strike
+        for i in range(16):
+            self.game.roll(0)
+        self.assertEqual(self.game.get_score(), 30)
+
+    def test_perfectGame(self):
+        for i in range(12):
+            self.game.roll(10)
+        self.assertEqual(self.game.get_score(), 300)
+
 
 if __name__ == '__main__':
     unittest.main()
