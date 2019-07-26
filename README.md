@@ -108,3 +108,17 @@ This will be the game engine which follows the rules of bowling:
 * A `strike` is when the player knocks down all 10 pins in 1 try. The bonus is the next 2 rolls.
 * In the tenth frame a player who rolls a spare / strike gets an extra roll(s) to complete the frame.
 * No more than 3 rolls can be rolled in the 10th frame.
+
+# Additional Katas
+
+## FizzBuzz
+
+Write a program that prints the numbers from 1 to 100.
+But for multiples of three print “Fizz” instead of the number
+and for the multiples of five print “Buzz”.
+For numbers which are multiples of both three and five print “FizzBuzz”."
+
+## Roman Numerals Conversion
+
+1. Given an Integer, return as a Roman Numeral
+1. Given a Roman Numeral, return as an Integer
