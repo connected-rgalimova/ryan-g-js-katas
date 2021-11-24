@@ -18,7 +18,7 @@ describe('Data Munging', () => {
 })
 
 describe('dayWithSmallestTempSpread', () => {
-    it('should return day  number (column one) with smallest temperature spread', () => {
+    it.only('should return day  number (column one) with smallest temperature spread', () => {
         const weatherData = [
             [100, 50], // day 1
             [55, 50], // day 2, smallest spread
@@ -28,5 +28,17 @@ describe('dayWithSmallestTempSpread', () => {
         const result = dayWithSmallestTempSpread(weatherData);
 
         expect(result).toEqual(2);
+    });
+    it.skip('should return error if there is more than 1 day that has the same temp spread', () => {
+        const weatherData = [
+            [100, 50], // day 1
+            [55, 50], // day 2, smallest spread
+            [75, 50], // day 3
+            [60, 55], // day 4, smallest spread
+        ];
+
+        const result = dayWithSmallestTempSpread(weatherData);
+
+        expect(result).toThrowError('there is more than 1 day has the smallest spread');
     });
 });

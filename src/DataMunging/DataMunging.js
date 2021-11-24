@@ -15,17 +15,18 @@ const DataMunging = (path) => {
 }
 
 const dayWithSmallestTempSpread = (data) => {
-    let minTempSpread_idx = null;
-    let minTempSpread = null;
+    let minTempSpread_idx = [];
+    let minTempSpread = [];
     for (let i = 0; i < data.length; i++) {
         const curDayTempSpread = data[i][0] - data[i][1];
-        if (minTempSpread_idx === null || curDayTempSpread < minTempSpread) {
-            minTempSpread_idx = i;
-            minTempSpread = curDayTempSpread;
+        console.log(curDayTempSpread);
+        if (minTempSpread_idx.length === 0 || minTempSpread.length === 0 || curDayTempSpread < minTempSpread[0]) {
+            minTempSpread_idx.push(i);
+            minTempSpread.push(curDayTempSpread);
         }
     }
 
-    return minTempSpread_idx + 1;
+    return minTempSpread_idx[0] + 1;
 }
 
 module.exports = {DataMunging, dayWithSmallestTempSpread};
