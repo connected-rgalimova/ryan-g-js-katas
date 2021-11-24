@@ -18,9 +18,10 @@ const dayWithSmallestTempSpread = (data) => {
     let minTempSpread_idx = null;
     let minTempSpread = null;
     for (let i = 0; i < data.length; i++) {
-        if (minTempSpread_idx === null || data[i][0]-data[i][1] < minTempSpread) {
+        const curDayTempSpread = data[i][0] - data[i][1];
+        if (minTempSpread_idx === null || curDayTempSpread < minTempSpread) {
             minTempSpread_idx = i;
-            minTempSpread = data[i][0]-data[i][1];
+            minTempSpread = curDayTempSpread;
         }
     }
 
