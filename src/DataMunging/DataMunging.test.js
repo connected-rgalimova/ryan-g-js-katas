@@ -42,9 +42,9 @@ describe('teamWithSmallestGoalSpread', () => {
 describe('dayWithSmallestTempSpread', () => {
     it('should return day  number (column one) with smallest temperature spread', () => {
         const weatherData = [
-            [100, 50], // day 1
-            [55, 50], // day 2, smallest spread
-            [75, 50], // day 3
+            [1, 100, 50], // day 1
+            [2, 55, 50], // day 2, smallest spread
+            [3, 75, 50], // day 3
         ];
 
         const result = dayWithSmallestTempSpread(weatherData);
@@ -53,14 +53,14 @@ describe('dayWithSmallestTempSpread', () => {
     });
     it('should return error if there is more than 1 day that has the same temp spread', () => {
         const weatherData = [
-            [100, 50], // day 1
-            [55, 50], // day 2, smallest spread
-            [75, 50], // day 3
-            [60, 55], // day 4, smallest spread
+            [1, 100, 50], // day 1
+            [2, 55, 50], // day 2, smallest spread
+            [3, 75, 50], // day 3
+            [4, 60, 55], // day 4, smallest spread
         ];
 
         // const result = dayWithSmallestTempSpread(weatherData);
 
-        expect(() => dayWithSmallestTempSpread(weatherData)).toThrowError('there is more than 1 day has the smallest spread');
+        expect(() => dayWithSmallestTempSpread(weatherData)).toThrowError('there is more than 1 minimum difference');
     });
 });

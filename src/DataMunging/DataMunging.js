@@ -14,46 +14,35 @@ const DataMunging = (path) => {
     return returnArray;
 }
 
-const dayWithSmallestTempSpread = (data) => {
-    let minTempSpread_idx = [];
-    let minTempSpread = [];
+const helperFunction = (data, max_idx, min_idx) => {
+    let minDifference_idx = [];
+    let minDifference = [];
     for (let i = 0; i < data.length; i++) {
-        const curDayTempSpread = data[i][0] - data[i][1];
-        if (minTempSpread_idx.length === 0 || minTempSpread.length === 0 || curDayTempSpread === minTempSpread[0]) {
-            minTempSpread_idx.push(i);
-            minTempSpread.push(curDayTempSpread);
-        } else if (curDayTempSpread < minTempSpread[0]) {
-            minTempSpread_idx = [i];
-            minTempSpread = [curDayTempSpread];
+        const curDifference = data[i][max_idx] - data[i][min_idx];
+        if (minDifference_idx.length === 0 || minDifference.length === 0 || curDifference === minDifference[0]) {
+            minDifference_idx.push(data[i][0]);
+            minDifference.push(curDifference);
+        } else if (curDifference < minDifference[0]) {
+            minDifference_idx = [data[i][0]];
+            minDifference = [curDifference];
         }
     }
 
-    if (minTempSpread_idx.length > 1) {
-        throw 'there is more than 1 day has the smallest spread';
+    if (minDifference_idx.length > 1) {
+        throw `there is more than 1 minimum difference`;
     }
 
-    return minTempSpread_idx[0] + 1;
+    return minDifference_idx[0];
+}
+
+const dayWithSmallestTempSpread = (data) => {
+
+    return helperFunction(data, 1, 2);
 }
 
 const teamWithSmallestGoalSpread = (data) => {
-    let minGoalSpread_name = [];
-    let minGoalSpread = [];
-    for (let i = 0; i < data.length; i++) {
-        const curGoalSpead = data[i][5] - data[i][7];
-        if (minGoalSpread_name.length === 0 || minGoalSpread.length === 0 || curGoalSpead === minGoalSpread[0]) {
-            minGoalSpread_name.push(data[i][0]);
-            minGoalSpread.push(curGoalSpead);
-        } else if (curGoalSpead < minGoalSpread[0]) {
-            minGoalSpread_name = [data[i][0]];
-            minGoalSpread = [curGoalSpead];
-        }
-    }
-
-    if (minGoalSpread_name.length > 1) {
-        throw 'there is more than 1 day has the smallest spread';
-    }
-
-    return minGoalSpread_name[0];
+    
+    return helperFunction(data,5, 7);
 } 
 
 module.exports = {DataMunging, dayWithSmallestTempSpread, teamWithSmallestGoalSpread};
