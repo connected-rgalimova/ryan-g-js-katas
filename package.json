@@ -21,6 +21,7 @@
     "build": ":",
     "test": "xo 'src/**/*.js' && jest --coverage",
     "watch": "jest --watch",
+    "jest": "jest",
     "release": ":"
   },
   "dependencies": {
