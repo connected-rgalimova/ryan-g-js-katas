@@ -11,6 +11,8 @@ const pipe = (...args) => {
   return (x) => args.reduce((y, func) => func(y), x)
 }
 
+const apply = (fn) => (obj) => obj[fn]()
+
 const getGreeting = (name) => (date) => {
   const getTimedGreeting = (date) => {
     if (date) {
@@ -39,7 +41,7 @@ const getGreeting = (name) => (date) => {
     return "Hello"
   }
   
-  return getTimedGreeting(date) + " " + capitalize(name.trim())
+  return getTimedGreeting(date) + " " + pipe(capitalize, apply("trim"))(name)
 }
 
 
