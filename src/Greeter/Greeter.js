@@ -13,8 +13,9 @@ const pipe = (...args) => {
 
 const apply = (fn) => (obj) => obj[fn]()
 
-const getGreeting = (name) => (date) => {
-  const getTimedGreeting = (date) => {
+const getGreeting = (config) => (name) => (date) => {
+  const clenedName = pipe(apply("trim"), capitalize)(name)
+  
     if (date) {
       const morningStart = new Date()
       morningStart.setHours(6)
@@ -29,24 +30,24 @@ const getGreeting = (name) => (date) => {
       eveningEnd.setHours(22)
 
       if (date > morningStart && date < morningEnd) {
-        return "Good Morning"
+        return config?.language_strings
+          ? config.language_strings(clenedName)[config.lang].greeting.morning
+          : `Good Morning ${clenedName}`
       }
       if (date > eveningStart && date < eveningEnd) {
-        return "Good Evening"
+        return `Good Evening ${clenedName}`
       }
       if (date < morningStart || date > eveningEnd) {
-        return "Good Night"
+        return `Good Night ${clenedName}`
       }
     }
-    return "Hello"
-  }
+    return `Hello ${clenedName}`
   
-  return getTimedGreeting(date) + " " + pipe(capitalize, apply("trim"))(name)
 }
 
 
-function greet(name, date = null) {
-  return pipe(getGreeting(name), trace)(date)
+function greet({ name, date = null, language_strings = null, lang = null }) {
+  return pipe(getGreeting({language_strings, lang})(name), trace)(date)
 }
 
 module.exports = { greet };
