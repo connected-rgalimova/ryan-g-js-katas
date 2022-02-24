@@ -13,35 +13,36 @@ const pipe = (...args) => {
 
 const apply = (fn) => (obj) => obj[fn]()
 
-const getGreeting = ({ name, language_strings, lang }) => (date) => {
-
+const getGreeting = ({ name, language_strings, lang }) => {
   const clenedName = pipe(apply("trim"), capitalize)(name)
   const greeting = language_strings(clenedName)[lang].greeting
 
-  if (date) {
-    const morningStart = new Date()
-    morningStart.setHours(6)
+  return (date) => {
+    if (date) {
+      const morningStart = new Date()
+      morningStart.setHours(6)
 
-    const morningEnd = new Date()
-    morningEnd.setHours(12)
+      const morningEnd = new Date()
+      morningEnd.setHours(12)
 
-    const eveningStart = new Date()
-    eveningStart.setHours(18)
+      const eveningStart = new Date()
+      eveningStart.setHours(18)
 
-    const eveningEnd = new Date()
-    eveningEnd.setHours(22)
+      const eveningEnd = new Date()
+      eveningEnd.setHours(22)
 
-    if (date > morningStart && date < morningEnd) {
-      return greeting.morning
+      if (date > morningStart && date < morningEnd) {
+        return greeting.morning
+      }
+      if (date > eveningStart && date < eveningEnd) {
+        return greeting.evening
+      }
+      if (date < morningStart || date > eveningEnd) {
+        return greeting.night
+      }
     }
-    if (date > eveningStart && date < eveningEnd) {
-      return greeting.evening
-    }
-    if (date < morningStart || date > eveningEnd) {
-      return greeting.night
-    }
+    return greeting.default
   }
-  return greeting.default
 }
 
 const defaultLanguageStrings = (name) => ({
