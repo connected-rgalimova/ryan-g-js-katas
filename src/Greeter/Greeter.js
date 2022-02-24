@@ -13,41 +13,51 @@ const pipe = (...args) => {
 
 const apply = (fn) => (obj) => obj[fn]()
 
-const getGreeting = (config) => (name) => (date) => {
+const getGreeting = ({ name, language_strings, lang }) => (date) => {
+
   const clenedName = pipe(apply("trim"), capitalize)(name)
-  
-    if (date) {
-      const morningStart = new Date()
-      morningStart.setHours(6)
+  const greeting = language_strings(clenedName)[lang].greeting
 
-      const morningEnd = new Date()
-      morningEnd.setHours(12)
+  if (date) {
+    const morningStart = new Date()
+    morningStart.setHours(6)
 
-      const eveningStart = new Date()
-      eveningStart.setHours(18)
+    const morningEnd = new Date()
+    morningEnd.setHours(12)
 
-      const eveningEnd = new Date()
-      eveningEnd.setHours(22)
+    const eveningStart = new Date()
+    eveningStart.setHours(18)
 
-      if (date > morningStart && date < morningEnd) {
-        return config?.language_strings
-          ? config.language_strings(clenedName)[config.lang].greeting.morning
-          : `Good Morning ${clenedName}`
-      }
-      if (date > eveningStart && date < eveningEnd) {
-        return `Good Evening ${clenedName}`
-      }
-      if (date < morningStart || date > eveningEnd) {
-        return `Good Night ${clenedName}`
-      }
+    const eveningEnd = new Date()
+    eveningEnd.setHours(22)
+
+    if (date > morningStart && date < morningEnd) {
+      return greeting.morning
     }
-    return `Hello ${clenedName}`
-  
+    if (date > eveningStart && date < eveningEnd) {
+      return greeting.evening
+    }
+    if (date < morningStart || date > eveningEnd) {
+      return greeting.night
+    }
+  }
+  return greeting.default
 }
 
+const defaultLanguageStrings = (name) => ({
+  en: {
+    greeting: {
+      morning: `Good Morning ${name}`,
+      afternoon: `Good Afternoon ${name}`,
+      evening: `Good Evening ${name}`,
+      night: `Good Night ${name}`,
+      default: `Hello ${name}`,
+    }
+  }
+})
 
-function greet({ name, date = null, language_strings = null, lang = null }) {
-  return pipe(getGreeting({language_strings, lang})(name), trace)(date)
+function greet({ name, date = null, language_strings = defaultLanguageStrings, lang = 'en' }) {
+  return pipe(getGreeting({ name, language_strings, lang }), trace)(date)
 }
 
 module.exports = { greet };
