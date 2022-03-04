@@ -1,27 +1,20 @@
-class StringCalculator {
-  add(input) {
-    // TODO split by \n and grab the first element
-    // check if it starts with //
-    // if yes set the value after // as delimiter
-    const customDelimiter = input.split('\n');
+const sumArray = (arr) => arr.reduce((agg, n) => (agg += n), 0)
 
-    const splitString = input.split(/[,\n]/);
-    let sum = 0;
-    let negatives = [];
-    for (let i = 0; i < splitString.length; i++) {
-      let num = Number(splitString[i]);
-      if (num < 0) {
-        negatives.push(num)
-      } else if (num > 1000) {
-        continue
-      }
-      sum += num;
-    }
-    if (negatives.length > 0) {
-      throw new Error('negatives not allowed: ' + negatives.join(','))
-    }
-    return sum;
+
+const add = (num) => {
+  const parsed_nums = num
+    .split(',')
+    .map((s) => (s.split('\n')))
+    .flat()
+    .map(n => Number(n))
+    .filter((n) => n <= 1000)
+
+  negative_nums = parsed_nums.filter(n => n < 0)
+  if (negative_nums.length > 0) {
+    throw `negatives not allowed: ${negative_nums.join(',')}`
   }
+
+  return sumArray(parsed_nums)
 }
 
-module.exports = StringCalculator;
+module.exports = { add }
