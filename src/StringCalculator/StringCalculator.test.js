@@ -47,4 +47,10 @@ describe('String Calculator', () => {
 
     expect(sum).toEqual(3)
   })
+
+  it('allows a custom delimiter (multi-char, multi-line)', () => {
+    const sum = add('//ab\n3ab6\n2ab2ab1')
+
+    expect(sum).toEqual(14)
+  })
 })
